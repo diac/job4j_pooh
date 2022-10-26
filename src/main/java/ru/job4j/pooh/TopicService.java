@@ -9,7 +9,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class TopicService implements Service {
 
-    Map<String, Map<String, ConcurrentLinkedQueue<String>>> queue = new ConcurrentHashMap<>();
+    private final Map<String, Map<String, ConcurrentLinkedQueue<String>>> queue = new ConcurrentHashMap<>();
     @Override
     public Resp process(Req req) {
         Resp resp = new Resp("", "204");
