@@ -15,14 +15,15 @@ public class TopicService implements Service {
         final String sourceName = req.getSourceName();
         if ("GET".equals(req.httpRequestType())) {
             queue.putIfAbsent(sourceName, new ConcurrentHashMap<>());
-            Queue<String> topicQueue = queue.get(sourceName).putIfAbsent(req.getParam(), new ConcurrentLinkedQueue<>());
+            Queue<String> topic = queue.get(sourceName).putIfAbsent(req.getParam(), new ConcurrentLinkedQueue<>());
             String responseText = "";
-            if (topicQueue != null) {
-                responseText = topicQueue.poll();
+            if (topic != null) {
+                responseText = topic.poll();
             }
             resp = new Resp(Optional.ofNullable(responseText).orElse(""), "200");
         } else if ("POST".equals(req.httpRequestType())) {
-            if (queue.containsKey(sourceName)) {
+            var topic = queue.getOrDefault(sourceName, new ConcurrentHashMap<>());
+            if (!topic.isEmpty()) {
                 queue.get(sourceName).values().forEach((topicQueue) -> topicQueue.add(req.getParam()));
             }
             resp = new Resp(req.getParam(), "200");
