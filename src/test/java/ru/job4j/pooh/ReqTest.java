@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.*;
 
-class ReqTest {
+public class ReqTest {
 
     @Test
     public void whenQueueModePostMethod() {

@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.*;
 
-class TopicServiceTest {
+public class TopicServiceTest {
 
     @Test
     public void whenTopic() {
