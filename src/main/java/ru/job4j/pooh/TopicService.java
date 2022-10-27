@@ -1,6 +1,5 @@
 package ru.job4j.pooh;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Queue;
@@ -15,7 +14,7 @@ public class TopicService implements Service {
         Resp resp = new Resp("", "204");
         final String sourceName = req.getSourceName();
         if ("GET".equals(req.httpRequestType())) {
-            queue.putIfAbsent(sourceName, new HashMap<>());
+            queue.putIfAbsent(sourceName, new ConcurrentHashMap<>());
             var responseText = "";
             Queue<String> topicQueue = queue.get(sourceName)
                     .getOrDefault(req.getParam(), new ConcurrentLinkedQueue<>());
